@@ -1,11 +1,7 @@
+// src/config/db.ts
 import mongoose from "mongoose";
 
-export const connectDB = async (): Promise<void> => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI as string);
-    console.log("MongoDB conectado");
-  } catch (error) {
-    console.error("Error conectando a MongoDB:", error);
-    process.exit(1);
-  }
+export const connectDB = async () => {
+  await mongoose.connect(process.env.MONGO_URI as string);
+  console.log("Mongo conectado");
 };
