@@ -1,52 +1,66 @@
-import express, { Request, Response } from 'express';
-import path from 'path';
+import express, { Request, Response } from "express";
+import path from "path";
+import "dotenv/config";
 
-import 'dotenv/config';
-import authRoutes from './routes/auth.routes';
-import { authenticate, authorize } from './middlewares/auth.middleware';
+import authRoutes from "./routes/auth.routes";
+import mascRoutes from "./routes/masc.routes";
+import { authenticate, authorize } from "./middlewares/auth.middleware";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-// Middleware para interpretar JSON
+
+// MIDDLEWARES
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Middleware para servir archivos estáticos desde la carpeta "public"
-app.use(express.static(path.join(__dirname, '..', 'public')));
-// ruta login (pagina por defecto)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/login.html'));
+
+// ARCHIVOS ESTÁTICOS
+
+app.use(express.static(path.join(__dirname, "public")));
+
+
+// PÁGINAS
+
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "public", "pages", "login.html"));
 });
 
-// ruta register
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/register.html'));
+app.get("/register", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "public", "pages", "register.html"));
 });
 
+app.get("/dashboard", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "public", "pages", "dashboard.html"));
+});
 
+app.get("/edit-pet", (req: Request, res: Response) => {
 
-app.use('/auth', authRoutes);
+res.sendFile(path.join(__dirname, "public", "pages", "edit-pet.html"));
 
-app.get('/public', (req: Request, res: Response) => {
+});
+
+// API
+
+app.use("/auth", authRoutes);
+app.use("/animals", mascRoutes);
+
+app.get("/protected", authenticate, (req, res) => {
   res.json({
-    message: 'Cualquiera puede entrar!',
+    message: "Acceso permitido",
   });
 });
 
-app.get('/protected', authenticate, (req, res) => {
+app.get("/admin", authenticate, authorize(["admin"]), (req, res) => {
   res.json({
-    message: 'Acceso permitido',
+    message: "Acceso de administrador permitido",
   });
 });
 
-// Ruta de administrador (requiere autenticación y rol admin)
-app.get('/admin', authenticate, authorize(['admin']), (req, res) => {
-  res.json({
-    message: 'Acceso de administrador permitido',
-  });
-});
 
-// Iniciar el servidor HTTP
+// SERVER
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT} 🚀`);
 });
