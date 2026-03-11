@@ -1,7 +1,7 @@
-import pool from '../database/mysql';
+import pool from "../database/mysql";
 
 export const findAllMasc = async () => {
-  const [rows] = await pool.query(`
+  const [filas] = await pool.query(`
     SELECT 
       m.id,
       m.nombre AS mascota,
@@ -43,11 +43,11 @@ export const findAllMasc = async () => {
     ORDER BY m.id ASC
   `);
 
-  return rows;
+  return filas;
 };
 
 export const searchMasc = async (q: string) => {
-  const [rows] = await pool.query(
+  const [filas] = await pool.query(
     `
     SELECT 
       m.id,
@@ -87,17 +87,15 @@ export const searchMasc = async (q: string) => {
 
     FROM mascotas m
     JOIN duenos d ON m.id_duenos = d.id
-
     WHERE m.nombre LIKE ?
        OR d.nombre LIKE ?
        OR d.apellido LIKE ?
-
     ORDER BY m.id ASC
     `,
     [`%${q}%`, `%${q}%`, `%${q}%`]
   );
 
-  return rows;
+  return filas;
 };
 
 export const createMasc = async (
@@ -106,45 +104,80 @@ export const createMasc = async (
   fecha: string,
   dueno: number
 ) => {
-  const [result] = await pool.query(
-    `INSERT INTO mascotas(nombre, especie, fecha_nacimiento, id_duenos)
-     VALUES (?, ?, ?, ?)`,
-    [nombre, especie, fecha, dueno]
+  const [resultado]: any = await pool.query(
+    `
+    INSERT INTO mascotas (nombre, especie, fecha_nacimiento, id_duenos)
+    VALUES (?, ?, ?, ?)
+    `,
+    [nombre, especie, fecha || null, dueno]
   );
 
-  return result;
+  return {
+    id: resultado.insertId,
+    nombre,
+    especie,
+    fecha_nacimiento: fecha || null,
+    id_duenos: dueno
+  };
 };
 
 export const updateMasc = async (
   id: number,
   nombre: string,
   especie: string,
-  fecha: string
+  fecha: string,
+  dueno: number
 ) => {
   await pool.query(
-    `UPDATE mascotas
-     SET nombre = ?, especie = ?, fecha_nacimiento = ?
-     WHERE id = ?`,
-    [nombre, especie, fecha, id]
+    `
+    UPDATE mascotas
+    SET nombre = ?, especie = ?, fecha_nacimiento = ?, id_duenos = ?
+    WHERE id = ?
+    `,
+    [nombre, especie, fecha || null, dueno, id]
   );
+
+  return {
+    id,
+    nombre,
+    especie,
+    fecha_nacimiento: fecha || null,
+    id_duenos: dueno
+  };
 };
 
 export const deleteMasc = async (id: number) => {
-  await pool.query(`DELETE FROM mascotas WHERE id = ?`, [id]);
+  await pool.query(
+    `
+    DELETE FROM historial_clinico
+    WHERE id_mascota = ?
+    `,
+    [id]
+  );
+
+  await pool.query(
+    `
+    DELETE FROM mascotas
+    WHERE id = ?
+    `,
+    [id]
+  );
 };
 
 export const findMascById = async (id: number) => {
-  const [rows]: any = await pool.query(
-    `SELECT 
+  const [filas]: any = await pool.query(
+    `
+    SELECT
       m.id,
       m.nombre,
       m.especie,
       m.fecha_nacimiento,
       m.id_duenos
-     FROM mascotas m
-     WHERE m.id = ?`,
+    FROM mascotas m
+    WHERE m.id = ?
+    `,
     [id]
   );
 
-  return rows[0];
+  return filas[0];
 };

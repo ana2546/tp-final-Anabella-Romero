@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ficha del animal - Patitas Felices</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="contenedor-dashboard">
+    <header class="encabezado-dashboard">
+      <div>
+        <h1>📋 Ficha del animal</h1>
+        <p id="subtituloFicha">Detalle completo del paciente</p>
+      </div>
+
+      <div class="acciones-encabezado">
+        <button id="btnVolverDashboard" class="boton-secundario">
+          Volver al dashboard
+        </button>
+      </div>
+    </header>
+
+    <main class="contenedor-formularios">
+      <section class="tarjeta">
+        <h2>Datos de la mascota</h2>
+        <div class="grilla-detalle">
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">ID</span>
+            <p id="detalleMascotaId">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Nombre</span>
+            <p id="detalleMascotaNombre">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Especie</span>
+            <p id="detalleMascotaEspecie">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Fecha de nacimiento</span>
+            <p id="detalleMascotaFechaNacimiento">-</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Datos del dueño</h2>
+        <div class="grilla-detalle">
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">ID dueño</span>
+            <p id="detalleDuenoId">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Nombre</span>
+            <p id="detalleDuenoNombre">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Apellido</span>
+            <p id="detalleDuenoApellido">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Teléfono</span>
+            <p id="detalleDuenoTelefono">-</p>
+          </div>
+
+          <div class="campo-detalle campo-detalle-completo">
+            <span class="etiqueta-detalle">Dirección</span>
+            <p id="detalleDuenoDireccion">-</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Veterinario asociado más reciente</h2>
+        <div class="grilla-detalle">
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Nombre</span>
+            <p id="detalleVeterinarioNombre">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Apellido</span>
+            <p id="detalleVeterinarioApellido">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Matrícula</span>
+            <p id="detalleVeterinarioMatricula">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Especialidad</span>
+            <p id="detalleVeterinarioEspecialidad">-</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tarjeta">
+        <div class="encabezado-seccion">
+          <h2>Historial clínico</h2>
+          <p id="textoPermisosHistorial"></p>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Veterinario</th>
+                <th>Matrícula</th>
+                <th>Especialidad</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody id="tablaHistorialClinico"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/animal-detail.js"></script>
+</body>
+</html>

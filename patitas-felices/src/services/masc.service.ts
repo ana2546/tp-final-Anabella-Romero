@@ -28,9 +28,10 @@ export const updateMascService = async (
   id: number,
   nombre: string,
   especie: string,
-  fecha: string
+  fecha: string,
+  dueno: number
 ) => {
-  return await updateMasc(id, nombre, especie, fecha);
+  return await updateMasc(id, nombre, especie, fecha, dueno);
 };
 
 export const deleteMascService = async (id: number) => {

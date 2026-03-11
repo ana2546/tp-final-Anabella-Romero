@@ -1,74 +1,65 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-<title>Dashboard</title>
-
-<link rel="stylesheet" href="/css/styles.css">
-
+  <meta charset="UTF-8" />
+  <title>Dashboard - Patitas Felices</title>
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
-
 <body>
+  <div class="contenedor-dashboard">
+    <header class="encabezado-dashboard">
+      <div>
+        <h1>🐾 Patitas Felices</h1>
+        <p id="textoBienvenida">Panel principal</p>
+      </div>
 
-<h1>🐾 Patitas Felices</h1>
+      <div class="acciones-encabezado">
+        <button id="btnCargarCliente" class="boton-primario oculto">
+          Cargar cliente
+        </button>
 
-<button id="logoutBtn">
-Cerrar sesión
-</button>
+        <button id="logoutBtn" class="boton-secundario">
+          Cerrar sesión
+        </button>
+      </div>
+    </header>
 
-<hr>
+    <main>
+      <section class="tarjeta">
+        <h2>Buscar animales</h2>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por nombre de mascota o dueño"
+          class="input-ancho"
+        />
+      </section>
 
-<h2>Buscar mascota</h2>
+      <section class="tarjeta">
+        <div class="encabezado-seccion">
+          <h2>Animales registrados</h2>
+          <p id="textoRol"></p>
+        </div>
 
-<input
-type="text"
-id="searchInput"
-placeholder="Buscar por mascota o dueño"
-/>
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>Mascota</th>
+                <th>Dueño</th>
+                <th>Veterinario</th>
+                <th>Último historial</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
 
-<hr>
+            <tbody id="animalsTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
 
-<h2>Agregar mascota</h2>
-
-<input id="nombre" placeholder="Nombre">
-<input id="especie" placeholder="Especie">
-<input id="fecha" type="date">
-<input id="dueno" placeholder="ID dueño">
-
-<button id="addPetBtn">
-Agregar mascota
-</button>
-
-<hr>
-
-<h2>Animales registrados</h2>
-
-<table border="1">
-
-<thead>
-
-<tr>
-
-<th>Mascota</th>
-<th>Dueño</th>
-<th>Veterinario</th>
-<th>Historial</th>
-<th>Acciones</th>
-
-</tr>
-
-</thead>
-
-<tbody id="animalsTable">
-</tbody>
-
-</table>
-
-<script src="/js/dashboard.js"></script>
-
+  <script src="/js/dashboard.js"></script>
 </body>
-
 </html>

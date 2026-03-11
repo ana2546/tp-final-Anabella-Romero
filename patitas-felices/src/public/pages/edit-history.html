@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar historial clínico - Patitas Felices</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="contenedor-dashboard">
+    <header class="encabezado-dashboard">
+      <div>
+        <h1>🩺 Editar historial clínico</h1>
+        <p>Modificación de la descripción del historial</p>
+      </div>
+
+      <div class="acciones-encabezado">
+        <button id="btnVolverFicha" class="boton-secundario">
+          Volver a la ficha
+        </button>
+      </div>
+    </header>
+
+    <main class="contenedor-formularios">
+      <section class="tarjeta">
+        <h2>Datos del historial</h2>
+
+        <div class="grilla-detalle">
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">ID historial</span>
+            <p id="detalleHistorialId">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">ID mascota</span>
+            <p id="detalleHistorialMascota">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Fecha de registro</span>
+            <p id="detalleHistorialFecha">-</p>
+          </div>
+
+          <div class="campo-detalle">
+            <span class="etiqueta-detalle">Veterinario</span>
+            <p id="detalleHistorialVeterinario">-</p>
+          </div>
+        </div>
+
+        <div class="campo campo-completo">
+          <label for="descripcionHistorial">Descripción</label>
+          <textarea id="descripcionHistorial" rows="8"></textarea>
+        </div>
+
+        <div class="acciones-formulario">
+          <button id="btnGuardarHistorial" class="boton-primario">
+            Guardar cambios
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/edit-history.js"></script>
+</body>
+</html>

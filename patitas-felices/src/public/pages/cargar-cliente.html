@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cargar cliente - Patitas Felices</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="contenedor-dashboard">
+    <header class="encabezado-dashboard">
+      <div>
+        <h1>➕ Cargar cliente</h1>
+        <p>Alta guiada de dueño, mascota, historial clínico y veterinarios</p>
+      </div>
+
+      <div class="acciones-encabezado">
+        <button id="btnVolverDashboard" class="boton-secundario">
+          Volver al dashboard
+        </button>
+      </div>
+    </header>
+
+    <main class="contenedor-formularios">
+      <section class="tarjeta">
+        <h2>1. Datos del dueño</h2>
+
+        <div class="grilla-formulario">
+          <div class="campo">
+            <label for="nombreDueno">Nombre</label>
+            <input type="text" id="nombreDueno" />
+          </div>
+
+          <div class="campo">
+            <label for="apellidoDueno">Apellido</label>
+            <input type="text" id="apellidoDueno" />
+          </div>
+
+          <div class="campo">
+            <label for="telefonoDueno">Teléfono</label>
+            <input type="text" id="telefonoDueno" />
+          </div>
+
+          <div class="campo">
+            <label for="direccionDueno">Dirección</label>
+            <input type="text" id="direccionDueno" />
+          </div>
+        </div>
+
+        <div class="bloque-estado">
+          <p id="estadoDueno">Primero debés cargar el dueño.</p>
+        </div>
+
+        <button id="btnCargarDueno" class="boton-primario">
+          Cargar dueño
+        </button>
+      </section>
+
+      <section class="tarjeta">
+        <h2>2. Datos de la mascota</h2>
+
+        <div class="grilla-formulario">
+          <div class="campo">
+            <label for="nombreMascota">Nombre</label>
+            <input type="text" id="nombreMascota" disabled />
+          </div>
+
+          <div class="campo">
+            <label for="especieMascota">Especie</label>
+            <input type="text" id="especieMascota" disabled />
+          </div>
+
+          <div class="campo">
+            <label for="fechaNacimientoMascota">Fecha de nacimiento</label>
+            <input type="date" id="fechaNacimientoMascota" disabled />
+          </div>
+
+          <div class="campo">
+            <label for="idDuenoMascota">ID dueño asignado</label>
+            <input
+              type="number"
+              id="idDuenoMascota"
+              readonly
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="bloque-estado">
+          <p id="estadoMascota">No podés cargar una mascota hasta crear el dueño.</p>
+        </div>
+
+        <button id="btnCargarMascota" class="boton-primario" disabled>
+          Cargar mascota
+        </button>
+      </section>
+
+      <section class="tarjeta">
+        <h2>3. Cargar veterinario (opcional)</h2>
+
+        <div class="grilla-formulario">
+          <div class="campo">
+            <label for="nombreVeterinario">Nombre</label>
+            <input type="text" id="nombreVeterinario" />
+          </div>
+
+          <div class="campo">
+            <label for="apellidoVeterinario">Apellido</label>
+            <input type="text" id="apellidoVeterinario" />
+          </div>
+
+          <div class="campo">
+            <label for="matriculaVeterinario">Matrícula</label>
+            <input type="text" id="matriculaVeterinario" />
+          </div>
+
+          <div class="campo">
+            <label for="especialidadVeterinario">Especialidad</label>
+            <input type="text" id="especialidadVeterinario" />
+          </div>
+        </div>
+
+        <div class="bloque-estado">
+          <p id="estadoVeterinario">
+            Podés cargar un veterinario nuevo o usar uno ya existente desde la lista del historial.
+          </p>
+        </div>
+
+        <button id="btnCargarVeterinario" class="boton-primario">
+          Cargar veterinario
+        </button>
+      </section>
+
+      <section class="tarjeta">
+        <h2>4. Historial clínico</h2>
+
+        <div class="grilla-formulario">
+          <div class="campo">
+            <label for="idMascotaHistorial">ID mascota</label>
+            <input
+              type="number"
+              id="idMascotaHistorial"
+              readonly
+              disabled
+            />
+          </div>
+
+          <div class="campo">
+            <label for="selectVeterinario">Veterinario</label>
+            <select id="selectVeterinario" disabled>
+              <option value="">Seleccionar veterinario</option>
+            </select>
+          </div>
+
+          <div class="campo campo-completo">
+            <label for="descripcionHistorial">Descripción del historial clínico</label>
+            <textarea id="descripcionHistorial" rows="5" disabled></textarea>
+          </div>
+        </div>
+
+        <div class="bloque-estado">
+          <p id="estadoHistorial">
+            No podés cargar historial clínico hasta crear primero la mascota.
+          </p>
+        </div>
+
+        <button id="btnCargarHistorial" class="boton-primario" disabled>
+          Cargar historial clínico
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/cargar-cliente.js"></script>
+</body>
+</html>
