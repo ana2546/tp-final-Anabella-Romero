@@ -127,10 +127,12 @@ DB_USER=root
 DB_PASSWORD=tu_password
 DB_NAME=veterinaria_patitas_felices
 
-JWT_SECRET=vamos-a-poner-algo-raro-aqui
+JWT_SECRET=vamos-a-poner-algo-raro-aqui  
 JWT_EXPIRES_IN=1d
 
 ---
+
+El JWT_SECRET poner lo mismo ya que el hash de la contraseña inicial del admin depente de esto.
 
 # Pasos para ejecutar el proyecto
 
