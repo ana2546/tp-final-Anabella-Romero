@@ -9,7 +9,7 @@ import {
 
 export const crearVeterinario = async (req: Request, res: Response) => {
   try {
-    const { nombre, apellido, matricula, especialidad } = req.body;
+    const { nombre, apellido, matricula, especialidad, id_usuario } = req.body;
 
     if (!nombre || !apellido || !matricula || !especialidad) {
       return res.status(400).json({
@@ -21,7 +21,8 @@ export const crearVeterinario = async (req: Request, res: Response) => {
       nombre,
       apellido,
       matricula,
-      especialidad
+      especialidad,
+      id_usuario: id_usuario ?? null
     });
 
     res.status(201).json(nuevoVeterinario);
@@ -30,7 +31,7 @@ export const crearVeterinario = async (req: Request, res: Response) => {
 
     if (error?.code === "ER_DUP_ENTRY") {
       return res.status(400).json({
-        mensaje: "La matrícula ya existe"
+        mensaje: "La matrícula o el usuario asociado ya existe"
       });
     }
 
@@ -76,7 +77,7 @@ export const obtenerVeterinarioPorId = async (req: Request, res: Response) => {
 export const actualizarVeterinario = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    const { nombre, apellido, matricula, especialidad } = req.body;
+    const { nombre, apellido, matricula, especialidad, id_usuario } = req.body;
 
     if (!nombre || !apellido || !matricula || !especialidad) {
       return res.status(400).json({
@@ -96,7 +97,8 @@ export const actualizarVeterinario = async (req: Request, res: Response) => {
       nombre,
       apellido,
       matricula,
-      especialidad
+      especialidad,
+      id_usuario: id_usuario ?? null
     });
 
     res.json(veterinarioActualizado);
@@ -105,7 +107,7 @@ export const actualizarVeterinario = async (req: Request, res: Response) => {
 
     if (error?.code === "ER_DUP_ENTRY") {
       return res.status(400).json({
-        mensaje: "La matrícula ya existe"
+        mensaje: "La matrícula o el usuario asociado ya existe"
       });
     }
 

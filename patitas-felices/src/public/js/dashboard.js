@@ -27,6 +27,7 @@ const nombreUsuario = datosUsuario.username;
 
 const logoutBtn = document.getElementById("logoutBtn");
 const btnCargarCliente = document.getElementById("btnCargarCliente");
+const btnRegistrarUsuario = document.getElementById("btnRegistrarUsuario");
 const searchInput = document.getElementById("searchInput");
 const textoBienvenida = document.getElementById("textoBienvenida");
 const textoRol = document.getElementById("textoRol");
@@ -36,9 +37,11 @@ textoBienvenida.textContent = `Bienvenido/a, ${nombreUsuario}`;
 if (rolUsuario === "admin") {
   textoRol.textContent = "Rol: administrador";
   btnCargarCliente.classList.remove("oculto");
+  btnRegistrarUsuario.classList.remove("oculto");
 } else {
   textoRol.textContent = "Rol: usuario";
   btnCargarCliente.classList.add("oculto");
+  btnRegistrarUsuario.classList.add("oculto");
 }
 
 logoutBtn.addEventListener("click", () => {
@@ -49,6 +52,12 @@ logoutBtn.addEventListener("click", () => {
 btnCargarCliente.addEventListener("click", () => {
   if (rolUsuario === "admin") {
     window.location.href = "/cargar-cliente";
+  }
+});
+
+btnRegistrarUsuario.addEventListener("click", () => {
+  if (rolUsuario === "admin") {
+    window.location.href = "/register";
   }
 });
 

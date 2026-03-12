@@ -1,38 +1,62 @@
-import { body, ValidationChain } from "express-validator";
+import { body } from "express-validator";
 
-
-export const validatePassword: ValidationChain[] = [
-  body('password')
-    .isLength({ min: 8 })
-    .withMessage('La contraseña debe tener al menos 8 caracteres')
-    .matches(/\d/)
-    .withMessage('La contraseña debe contener al menos un número')
-    .matches(/[A-Z]/)
-    .withMessage('La contraseña debe contener al menos una mayúscula')
-    .matches(/[^A-Za-z0-9]/)
-    .withMessage('La contraseña debe contener al menos un carácter especial'),
-];
-
-export const validateEmail: ValidationChain[] = [
-  body('email')
-    .isEmail()
-    .withMessage('Debe ser un email válido')
-    .normalizeEmail(),
-];
-
-export const registerValidator: ValidationChain[] = [
-  ...validateEmail,
-  ...validatePassword,
-  body('username')
+export const registerValidator = [
+  body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("El nombre de usuario es obligatorio")
     .isLength({ min: 3 })
-    .withMessage('Username debe tener al menos 3 caracteres')
-    .matches(/^[a-zA-Z0-9_]+$/)
-    .withMessage(
-      'Username solo puede contener letras, números y guiones bajos'
-    ),
+    .withMessage("El nombre de usuario debe tener al menos 3 caracteres"),
+
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("El email es obligatorio")
+    .isEmail()
+    .withMessage("El email no es válido"),
+
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("La contraseña es obligatoria")
+    .isLength({ min: 6 })
+    .withMessage("La contraseña debe tener al menos 6 caracteres")
+    .matches(/[A-Z]/)
+    .withMessage("La contraseña debe contener al menos una mayúscula")
+    .matches(/[^A-Za-z0-9]/)
+    .withMessage("La contraseña debe contener al menos un carácter especial"),
+
+  body("nombre")
+    .trim()
+    .notEmpty()
+    .withMessage("El nombre del veterinario es obligatorio"),
+
+  body("apellido")
+    .trim()
+    .notEmpty()
+    .withMessage("El apellido del veterinario es obligatorio"),
+
+  body("matricula")
+    .trim()
+    .notEmpty()
+    .withMessage("La matrícula es obligatoria"),
+
+  body("especialidad")
+    .trim()
+    .notEmpty()
+    .withMessage("La especialidad es obligatoria"),
 ];
 
-export const loginValidator: ValidationChain[] = [
-  ...validateEmail,
-  body('password').notEmpty().withMessage('La contraseña es requerida'),
+export const loginValidator = [
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("El email es obligatorio")
+    .isEmail()
+    .withMessage("El email no es válido"),
+
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("La contraseña es obligatoria"),
 ];

@@ -5,20 +5,21 @@ export interface DatosVeterinario {
   apellido: string;
   matricula: string;
   especialidad: string;
+  id_usuario?: number | null;
 }
 
 export const crearVeterinario = async (datos: DatosVeterinario) => {
-
   const [resultado]: any = await pool.query(
     `
-    INSERT INTO veterinarios (nombre, apellido, matricula, especialidad)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO veterinarios (nombre, apellido, matricula, especialidad, id_usuario)
+    VALUES (?, ?, ?, ?, ?)
     `,
     [
       datos.nombre,
       datos.apellido,
       datos.matricula,
-      datos.especialidad
+      datos.especialidad,
+      datos.id_usuario ?? null
     ]
   );
 
@@ -26,11 +27,9 @@ export const crearVeterinario = async (datos: DatosVeterinario) => {
     id: resultado.insertId,
     ...datos
   };
-
 };
 
 export const obtenerVeterinarios = async () => {
-
   const [filas] = await pool.query(
     `
     SELECT
@@ -38,18 +37,17 @@ export const obtenerVeterinarios = async () => {
       nombre,
       apellido,
       matricula,
-      especialidad
+      especialidad,
+      id_usuario
     FROM veterinarios
-    ORDER BY id ASC
+    ORDER BY nombre ASC
     `
   );
 
   return filas;
-
 };
 
 export const obtenerVeterinarioPorId = async (id: number) => {
-
   const [filas]: any = await pool.query(
     `
     SELECT
@@ -57,7 +55,8 @@ export const obtenerVeterinarioPorId = async (id: number) => {
       nombre,
       apellido,
       matricula,
-      especialidad
+      especialidad,
+      id_usuario
     FROM veterinarios
     WHERE id = ?
     `,
@@ -65,15 +64,16 @@ export const obtenerVeterinarioPorId = async (id: number) => {
   );
 
   return filas[0];
-
 };
 
-export const actualizarVeterinario = async (id: number, datos: DatosVeterinario) => {
-
+export const actualizarVeterinario = async (
+  id: number,
+  datos: DatosVeterinario
+) => {
   await pool.query(
     `
     UPDATE veterinarios
-    SET nombre = ?, apellido = ?, matricula = ?, especialidad = ?
+    SET nombre = ?, apellido = ?, matricula = ?, especialidad = ?, id_usuario = ?
     WHERE id = ?
     `,
     [
@@ -81,6 +81,7 @@ export const actualizarVeterinario = async (id: number, datos: DatosVeterinario)
       datos.apellido,
       datos.matricula,
       datos.especialidad,
+      datos.id_usuario ?? null,
       id
     ]
   );
@@ -89,11 +90,9 @@ export const actualizarVeterinario = async (id: number, datos: DatosVeterinario)
     id,
     ...datos
   };
-
 };
 
 export const eliminarVeterinario = async (id: number) => {
-
   await pool.query(
     `
     DELETE FROM veterinarios
@@ -101,5 +100,4 @@ export const eliminarVeterinario = async (id: number) => {
     `,
     [id]
   );
-
 };
