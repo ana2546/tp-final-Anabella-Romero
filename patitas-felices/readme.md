@@ -96,8 +96,10 @@ El sistema utiliza un trigger que asigna automáticamente el rol `user` a cada n
 
 # Crear el primer usuario administrador (OBLIGATORIO)(SE ENCUENTRA EN EL DUMP)
 
-Antes de iniciar el sistema, se debe crear manualmente el primer usuario administrador. 
-EN PHPMYADMIN
+Antes de iniciar el sistema, se debe crear manualmente el primer usuario administrador ya que el register no es abierto a cualquiera y solo deben registrarse personal de la veterinaria. 
+
+
+EN PHPMYADMIN ABRIR SQL Y LUEGO DE CREAR LA BASE DE DATOS EJECUTAR LOS SIGUIENTES COMANDOS DE A UNO POR VEZ.
 
 INSERT INTO users (username, email, password)
 VALUES (
@@ -114,7 +116,7 @@ WHERE user_id = 'aca va el nro de id del usuario admin que se acaba de crear';
 
 # Variables de entorno requeridas
 
-Crear un archivo `.env` en la raíz del proyecto.
+Crear un archivo `.env` en la raíz del proyecto, como se ve en el archivo .env.example
 
 Ejemplo:
 
@@ -125,8 +127,8 @@ DB_USER=root
 DB_PASSWORD=tu_password
 DB_NAME=veterinaria_patitas_felices
 
-JWT_SECRET=supersecretkey
-JWT_EXPIRES_IN=1h
+JWT_SECRET=vamos-a-poner-algo-raro-aqui
+JWT_EXPIRES_IN=1d
 
 ---
 
