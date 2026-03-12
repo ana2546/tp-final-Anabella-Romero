@@ -28,6 +28,7 @@ const nombreUsuario = datosUsuario.username;
 const logoutBtn = document.getElementById("logoutBtn");
 const btnCargarCliente = document.getElementById("btnCargarCliente");
 const btnRegistrarUsuario = document.getElementById("btnRegistrarUsuario");
+const btnGestionUsuarios = document.getElementById("btnGestionUsuarios");
 const searchInput = document.getElementById("searchInput");
 const textoBienvenida = document.getElementById("textoBienvenida");
 const textoRol = document.getElementById("textoRol");
@@ -38,10 +39,12 @@ if (rolUsuario === "admin") {
   textoRol.textContent = "Rol: administrador";
   btnCargarCliente.classList.remove("oculto");
   btnRegistrarUsuario.classList.remove("oculto");
+  btnGestionUsuarios.classList.remove("oculto");
 } else {
   textoRol.textContent = "Rol: usuario";
   btnCargarCliente.classList.add("oculto");
   btnRegistrarUsuario.classList.add("oculto");
+  btnGestionUsuarios.classList.add("oculto");
 }
 
 logoutBtn.addEventListener("click", () => {
@@ -58,6 +61,12 @@ btnCargarCliente.addEventListener("click", () => {
 btnRegistrarUsuario.addEventListener("click", () => {
   if (rolUsuario === "admin") {
     window.location.href = "/register";
+  }
+});
+
+btnGestionUsuarios.addEventListener("click", () => {
+  if (rolUsuario === "admin") {
+    window.location.href = "/usuarios";
   }
 });
 
@@ -102,17 +111,27 @@ function renderizarAnimales(animales) {
   }
 
   animales.forEach((animal) => {
+    let acciones = `
+      <button class="boton-tabla" onclick="verFichaAnimal(${animal.id})">
+        Ver ficha
+      </button>
+    `;
+
+    if (rolUsuario === "admin") {
+      acciones += `
+        <button class="boton-eliminar" onclick="eliminarMascota(${animal.id}, '${animal.name.replace(/'/g, "\\'")}')">
+          Eliminar
+        </button>
+      `;
+    }
+
     tabla.innerHTML += `
       <tr>
         <td>${animal.name}</td>
         <td>${animal.owner}</td>
         <td>${animal.vet}</td>
         <td>${animal.history}</td>
-        <td>
-          <button class="boton-tabla" onclick="verFichaAnimal(${animal.id})">
-            Ver ficha
-          </button>
-        </td>
+        <td>${acciones}</td>
       </tr>
     `;
   });
@@ -120,6 +139,35 @@ function renderizarAnimales(animales) {
 
 window.verFichaAnimal = function (id) {
   window.location.href = `/animal?id=${id}`;
+};
+
+window.eliminarMascota = async function (id, nombre) {
+  if (rolUsuario !== "admin") return;
+
+  const confirmar = confirm(`¿Seguro que querés eliminar a la mascota "${nombre}"?`);
+  if (!confirmar) return;
+
+  try {
+    const respuesta = await fetch(`/animals/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      alert(datos.mensaje || "No se pudo eliminar la mascota");
+      return;
+    }
+
+    alert("Mascota eliminada correctamente");
+    cargarAnimales();
+  } catch (error) {
+    console.error(error);
+    alert("Error eliminando mascota");
+  }
 };
 
 searchInput.addEventListener("keyup", async () => {

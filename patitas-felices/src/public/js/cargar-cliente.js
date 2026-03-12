@@ -30,12 +30,10 @@ if (datosUsuario.role !== "admin") {
 const btnVolverDashboard = document.getElementById("btnVolverDashboard");
 const btnCargarDueno = document.getElementById("btnCargarDueno");
 const btnCargarMascota = document.getElementById("btnCargarMascota");
-const btnCargarVeterinario = document.getElementById("btnCargarVeterinario");
 const btnCargarHistorial = document.getElementById("btnCargarHistorial");
 
 const estadoDueno = document.getElementById("estadoDueno");
 const estadoMascota = document.getElementById("estadoMascota");
-const estadoVeterinario = document.getElementById("estadoVeterinario");
 const estadoHistorial = document.getElementById("estadoHistorial");
 
 const inputNombreDueno = document.getElementById("nombreDueno");
@@ -47,11 +45,6 @@ const inputNombreMascota = document.getElementById("nombreMascota");
 const inputEspecieMascota = document.getElementById("especieMascota");
 const inputFechaNacimientoMascota = document.getElementById("fechaNacimientoMascota");
 const inputIdDuenoMascota = document.getElementById("idDuenoMascota");
-
-const inputNombreVeterinario = document.getElementById("nombreVeterinario");
-const inputApellidoVeterinario = document.getElementById("apellidoVeterinario");
-const inputMatriculaVeterinario = document.getElementById("matriculaVeterinario");
-const inputEspecialidadVeterinario = document.getElementById("especialidadVeterinario");
 
 const inputIdMascotaHistorial = document.getElementById("idMascotaHistorial");
 const selectVeterinario = document.getElementById("selectVeterinario");
@@ -92,13 +85,6 @@ function limpiarFormularioMascota() {
   inputFechaNacimientoMascota.value = "";
 }
 
-function limpiarFormularioVeterinario() {
-  inputNombreVeterinario.value = "";
-  inputApellidoVeterinario.value = "";
-  inputMatriculaVeterinario.value = "";
-  inputEspecialidadVeterinario.value = "";
-}
-
 async function cargarVeterinarios() {
   try {
     const respuesta = await fetch("/veterinarios", {
@@ -108,7 +94,7 @@ async function cargarVeterinarios() {
     });
 
     if (!respuesta.ok) {
-      estadoVeterinario.textContent = "No se pudieron cargar los veterinarios.";
+      estadoHistorial.textContent = "No se pudieron cargar los veterinarios.";
       return;
     }
 
@@ -127,7 +113,7 @@ async function cargarVeterinarios() {
     });
   } catch (error) {
     console.error(error);
-    estadoVeterinario.textContent = "Error cargando la lista de veterinarios.";
+    estadoHistorial.textContent = "Error cargando la lista de veterinarios.";
   }
 }
 
@@ -233,52 +219,6 @@ btnCargarMascota.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     alert("Error cargando mascota");
-  }
-});
-
-btnCargarVeterinario.addEventListener("click", async () => {
-  const nombre = inputNombreVeterinario.value.trim();
-  const apellido = inputApellidoVeterinario.value.trim();
-  const matricula = inputMatriculaVeterinario.value.trim();
-  const especialidad = inputEspecialidadVeterinario.value.trim();
-
-  if (!nombre || !apellido || !matricula || !especialidad) {
-    alert("Nombre, apellido, matrícula y especialidad del veterinario son obligatorios");
-    return;
-  }
-
-  try {
-    const respuesta = await fetch("/veterinarios", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        nombre,
-        apellido,
-        matricula,
-        especialidad
-      })
-    });
-
-    const datos = await respuesta.json();
-
-    if (!respuesta.ok) {
-      alert(datos.mensaje || "No se pudo cargar el veterinario");
-      return;
-    }
-
-    estadoVeterinario.textContent = `Veterinario cargado correctamente. ID generado: ${datos.id}`;
-    limpiarFormularioVeterinario();
-    await cargarVeterinarios();
-
-    if (datos.id) {
-      selectVeterinario.value = String(datos.id);
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Error cargando veterinario");
   }
 });
 

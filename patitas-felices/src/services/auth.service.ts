@@ -65,29 +65,9 @@ export const register = async (
 
     const idUsuario = resultadoUsuario.insertId;
 
-    const [filasRol]: any = await conexion.query(
-      `
-      SELECT id
-      FROM roles
-      WHERE name = ?
-      LIMIT 1
-      `,
-      [UserRole.USER]
-    );
-
-    if (!filasRol.length) {
-      throw new Error("No existe el rol user en la tabla roles");
-    }
-
-    const idRolUser = filasRol[0].id;
-
-    await conexion.query(
-      `
-      INSERT IGNORE INTO user_roles (user_id, role_id)
-      VALUES (?, ?)
-      `,
-      [idUsuario, idRolUser]
-    );
+    // IMPORTANTE:
+    // NO insertamos en user_roles desde el backend
+    // porque el trigger assign_user_role lo hace automáticamente.
 
     await conexion.query(
       `

@@ -10,7 +10,7 @@
     <header class="encabezado-dashboard">
       <div>
         <h1>👨‍⚕️ Registrar usuario veterinario</h1>
-        <p>Solo administradores pueden crear nuevos usuarios veterinarios</p>
+        <p>Solo administradores pueden crear y administrar veterinarios</p>
       </div>
 
       <div class="acciones-encabezado">
@@ -71,6 +71,32 @@
           <button id="btnRegistrar" class="boton-primario">
             Registrar usuario veterinario
           </button>
+        </div>
+      </section>
+
+      <section class="tarjeta">
+        <div class="encabezado-seccion">
+          <h2>Veterinarios registrados</h2>
+          <button id="btnRecargarVeterinarios" class="boton-secundario">
+            Recargar lista
+          </button>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Matrícula</th>
+                <th>Especialidad</th>
+                <th>ID usuario</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaVeterinarios"></tbody>
+          </table>
         </div>
       </section>
     </main>

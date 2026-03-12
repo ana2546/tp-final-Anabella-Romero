@@ -25,6 +25,8 @@ if (!datosUsuario || datosUsuario.role !== "admin") {
 
 const btnVolverDashboard = document.getElementById("btnVolverDashboard");
 const btnRegistrar = document.getElementById("btnRegistrar");
+const btnRecargarVeterinarios = document.getElementById("btnRecargarVeterinarios");
+const tablaVeterinarios = document.getElementById("tablaVeterinarios");
 
 btnVolverDashboard.addEventListener("click", () => {
   window.location.href = "/dashboard";
@@ -70,7 +72,14 @@ btnRegistrar.addEventListener("click", async () => {
       })
     });
 
-    const datos = await respuesta.json();
+    const textoRespuesta = await respuesta.text();
+
+    let datos = {};
+    try {
+      datos = JSON.parse(textoRespuesta);
+    } catch (e) {
+      datos = { error: textoRespuesta };
+    }
 
     if (!respuesta.ok) {
       const mensaje =
@@ -91,8 +100,96 @@ btnRegistrar.addEventListener("click", async () => {
     document.getElementById("apellido").value = "";
     document.getElementById("matricula").value = "";
     document.getElementById("especialidad").value = "";
+
+    cargarVeterinarios();
   } catch (error) {
     console.error(error);
     alert("Error registrando usuario veterinario");
   }
 });
+
+btnRecargarVeterinarios.addEventListener("click", () => {
+  cargarVeterinarios();
+});
+
+async function cargarVeterinarios() {
+  try {
+    const respuesta = await fetch("/veterinarios", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      alert(datos.mensaje || "No se pudieron cargar los veterinarios");
+      return;
+    }
+
+    renderizarVeterinarios(datos);
+  } catch (error) {
+    console.error(error);
+    alert("Error cargando veterinarios");
+  }
+}
+
+function renderizarVeterinarios(veterinarios) {
+  tablaVeterinarios.innerHTML = "";
+
+  if (!veterinarios || veterinarios.length === 0) {
+    tablaVeterinarios.innerHTML = `
+      <tr>
+        <td colspan="7">No hay veterinarios registrados.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  veterinarios.forEach((veterinario) => {
+    tablaVeterinarios.innerHTML += `
+      <tr>
+        <td>${veterinario.id}</td>
+        <td>${veterinario.nombre}</td>
+        <td>${veterinario.apellido}</td>
+        <td>${veterinario.matricula}</td>
+        <td>${veterinario.especialidad}</td>
+        <td>${veterinario.id_usuario ?? "-"}</td>
+        <td>
+          <button class="boton-eliminar" onclick="eliminarVeterinario(${veterinario.id}, '${veterinario.nombre.replace(/'/g, "\\'")} ${veterinario.apellido.replace(/'/g, "\\'")}')">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+window.eliminarVeterinario = async function (id, nombreCompleto) {
+  const confirmar = confirm(`¿Seguro que querés eliminar al veterinario "${nombreCompleto}"?`);
+  if (!confirmar) return;
+
+  try {
+    const respuesta = await fetch(`/veterinarios/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      alert(datos.mensaje || "No se pudo eliminar el veterinario");
+      return;
+    }
+
+    alert("Veterinario eliminado correctamente");
+    cargarVeterinarios();
+  } catch (error) {
+    console.error(error);
+    alert("Error eliminando veterinario");
+  }
+};
+
+cargarVeterinarios();

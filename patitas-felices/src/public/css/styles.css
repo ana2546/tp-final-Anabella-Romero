@@ -5,8 +5,8 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f4f7fb;
-  color: #1f2937;
+  background: #f6f4f1;
+  color: #142c39;
 }
 
 h1,
@@ -26,7 +26,7 @@ textarea {
 button {
   cursor: pointer;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: 0.2s ease;
 }
 
@@ -48,8 +48,9 @@ textarea {
   margin-bottom: 24px;
   padding: 20px 24px;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(20, 44, 57, 0.08);
+  border-left: 8px solid #3f7e92;
 }
 
 .acciones-encabezado {
@@ -60,10 +61,11 @@ textarea {
 
 .tarjeta {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 18px rgba(20, 44, 57, 0.08);
+  border-top: 6px solid #ff7a1a;
 }
 
 .encabezado-seccion {
@@ -81,49 +83,74 @@ textarea {
 .campo textarea {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #d7d7d7;
   border-radius: 10px;
   background: #ffffff;
   outline: none;
+  color: #142c39;
 }
 
 .input-ancho:focus,
 .campo input:focus,
 .campo select:focus,
 .campo textarea:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: #3f7e92;
+  box-shadow: 0 0 0 3px rgba(63, 126, 146, 0.18);
 }
 
 .boton-primario {
-  background: #2563eb;
+  background: #e3001b;
   color: white;
   padding: 12px 16px;
+  font-weight: 600;
 }
 
 .boton-primario:hover {
-  background: #1d4ed8;
+  background: #b10f18;
 }
 
 .boton-secundario {
-  background: #e5e7eb;
-  color: #111827;
+  background: #3f7e92;
+  color: white;
   padding: 12px 16px;
+  font-weight: 600;
 }
 
 .boton-secundario:hover {
-  background: #d1d5db;
+  background: #142c39;
 }
 
 .boton-tabla {
-  background: #10b981;
+  background: #ff7a1a;
   color: white;
   padding: 8px 12px;
   font-size: 14px;
+  margin-right: 8px;
+  font-weight: 600;
 }
 
 .boton-tabla:hover {
-  background: #059669;
+  background: #ff4a1a;
+}
+
+.boton-eliminar {
+  background: #b10f18;
+  color: white;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.boton-eliminar:hover {
+  background: #8d0b12;
+}
+
+.texto-bloqueado {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 13px;
+  color: #3f7e92;
+  font-style: italic;
 }
 
 .oculto {
@@ -142,19 +169,23 @@ table {
 }
 
 thead {
-  background: #eff6ff;
+  background: #eef5f7;
 }
 
 th,
 td {
   text-align: left;
   padding: 14px 12px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e8e8e8;
   vertical-align: top;
 }
 
+th {
+  color: #142c39;
+}
+
 tbody tr:hover {
-  background: #f9fafb;
+  background: #fff7f1;
 }
 
 .contenedor-formularios {
@@ -178,7 +209,7 @@ tbody tr:hover {
 
 .campo label {
   font-weight: 600;
-  color: #374151;
+  color: #142c39;
 }
 
 .campo-completo {
@@ -188,9 +219,10 @@ tbody tr:hover {
 .bloque-estado {
   margin-bottom: 16px;
   padding: 12px 14px;
-  border-radius: 10px;
-  background: #f3f4f6;
-  color: #374151;
+  border-radius: 12px;
+  background: #eef5f7;
+  color: #142c39;
+  border-left: 5px solid #3f7e92;
 }
 
 .grilla-detalle {
@@ -200,8 +232,8 @@ tbody tr:hover {
 }
 
 .campo-detalle {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: #fafafa;
+  border: 1px solid #ececec;
   border-radius: 12px;
   padding: 14px;
 }
@@ -214,7 +246,7 @@ tbody tr:hover {
   display: block;
   font-size: 13px;
   font-weight: 700;
-  color: #6b7280;
+  color: #3f7e92;
   margin-bottom: 8px;
   text-transform: uppercase;
 }
@@ -223,82 +255,60 @@ tbody tr:hover {
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
 }
 
-/* =========================
-   NUEVO: CAMPOS DESHABILITADOS
-   Para que se vea claro cuándo un paso
-   todavía no está habilitado
-   ========================= */
 input:disabled,
 select:disabled,
 textarea:disabled {
-  background: #f1f5f9;
-  color: #6b7280;
-  border-color: #cbd5e1;
+  background: #f2f2f2;
+  color: #6f7b83;
+  border-color: #d6d6d6;
   cursor: not-allowed;
   opacity: 1;
 }
 
-/* =========================
-   NUEVO: CAMPOS SOLO LECTURA
-   Para mostrar IDs autocompletados
-   sin que parezcan errores
-   ========================= */
 input[readonly] {
-  background: #eef2ff;
-  color: #1e3a8a;
-  border-color: #c7d2fe;
+  background: #eef5f7;
+  color: #142c39;
+  border-color: #3f7e92;
   font-weight: 600;
 }
 
-/* =========================
-   NUEVO: BOTONES DESHABILITADOS
-   Para que quede claro que no se puede
-   avanzar al siguiente paso todavía
-   ========================= */
 button:disabled {
-  background: #9ca3af;
-  color: #f9fafb;
+  background: #b9b9b9;
+  color: #f9f9f9;
   cursor: not-allowed;
 }
 
-/* =========================
-   NUEVO: MEJORA VISUAL DE LOS PASOS
-   Hace que cada tarjeta se vea más como
-   una etapa del proceso
-   ========================= */
 .tarjeta h2 {
-  color: #1e3a8a;
+  color: #142c39;
   margin-bottom: 20px;
 }
 
-/* =========================
-   NUEVO: ESTADOS MÁS VISIBLES
-   Mejora la caja donde se informa
-   si el paso ya fue completado
-   ========================= */
 .bloque-estado p {
   margin: 0;
   font-weight: 500;
 }
 
-/* =========================
-   NUEVO: TEXTAREA MÁS CÓMODA
-   Para historial clínico y observaciones
-   ========================= */
 textarea {
   min-height: 120px;
   line-height: 1.5;
 }
 
-/* =========================
-   NUEVO: MEJOR ESPACIADO EN INPUTS
-   ========================= */
 .campo input,
 .campo select,
 .campo textarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+a {
+  color: #e3001b;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b10f18;
 }
 
 @media (max-width: 768px) {
