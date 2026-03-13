@@ -167,7 +167,7 @@ curl -X POST http://localhost:5000/auth/login \
 -H "Content-Type: application/json" \
 -d '{
 "email": "admin@mail.com",
-"password": "Admin123!"
+"password": "Admin123-"
 }'
 
 ---
