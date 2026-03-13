@@ -61,7 +61,12 @@ public/
 ## 1. Clonar el repositorio
 
 git clone https://github.com/ana2546/tp-final-Anabella-Romero.git
+
+abrir repositorio 
+
 cd patitas-felices
+
+---
 
 ## 2. Instalar dependencias
 
