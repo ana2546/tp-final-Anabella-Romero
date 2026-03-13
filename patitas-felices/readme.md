@@ -4,11 +4,12 @@
 
 Patitas Felices es un sistema de gestión para una clínica veterinaria que permite administrar dueños, mascotas, veterinarios y el historial clínico de los animales.
 El veterinario recibe el rol de user unicamente y tiene permitido solo modificar los historiales de las mascotas cargadas. El administrador tiene la potestad de :
-cargar mascotas,veterinarios/usuarios y el primer historial clinico.
 
- modificar mascotas,veterinarios/usuarios.
- 
- y eliminar mascotas, veterinarios/usuarios e historial clinico
+ - Cargar mascotas,veterinarios/usuarios y el primer historial clinico.
+
+ - Modificar mascotas,veterinarios/usuarios.
+
+ - Eliminar mascotas, veterinarios/usuarios e historial clinico
  
 El sistema permite:
 
